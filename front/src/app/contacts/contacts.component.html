@@ -1,0 +1,153 @@
+<p-panel header="Contatos">
+  <form (ngSubmit)="createContact()" *ngIf="form" [formGroup]="form" method="post">
+    <div class="cadastrar card flex justify-content-center">
+          <span class="p-float-label">
+            <p-dropdown formControlName="person_id" [options]="clients" optionValue="id" placeholder="Selecione o cliente" id="float-label" optionLabel="name"></p-dropdown>
+            <label htmlFor="person_id">Cliente: </label>
+          </span>
+    </div>
+    <div class="cadastrar card flex justify-content-center">
+          <span class="p-float-label">
+            <p-dropdown formControlName="type_id" [options]="types" optionValue="id" placeholder="Selecione o tipo de contato" id="float-label"  optionLabel="description"></p-dropdown>
+            <label htmlFor="type_id">Tipo de Contato: </label>
+          </span>
+    </div>
+    <div class="cadastrar card flex justify-content-center">
+          <span class="p-float-label">
+            <input formControlName="description" id="description" pInputText type="text"/>
+            <label htmlFor="description"> Descrição: </label>
+          </span>
+    </div>
+    <p-button (onClick)="createContact()" class="submit" icon="pi pi-check" label="Salvar"
+              styleClass="p-button-success"></p-button>
+
+  </form>
+
+  <p-divider></p-divider>
+  <div class="p-card-content">
+    <p-fieldset [toggleable]="true" legend="Lista de Clientes">
+      <p-table
+        #dt1
+        [paginator]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [rows]="10"
+        [value]="contacts"
+        dataKey="id"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width:5rem">
+              <div class="flex align-items-center">
+                #
+              </div>
+            </th>
+            <th style="min-width:10rem">
+              <div class="flex align-items-center">
+                Cliente
+              </div>
+            </th>
+            <th style="min-width:10rem">
+              <div class="flex align-items-center">
+                Contato
+              </div>
+            </th>
+            <th style="min-width:10rem">
+              <div class="flex align-items-center">
+                Tipo de Contato
+              </div>
+            </th>
+            <th style="min-width:10rem">
+              <div class="flex align-items-center">
+                Ações
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template let-contact pTemplate="body">
+          <tr>
+            <td>
+              {{ contact.id }}
+            </td>
+            <td>
+              {{ contact.person.name }}
+            </td>
+            <td>
+              {{ contact.description}}
+            </td>
+            <td>
+              {{ contact.types.description }}
+            </td>
+            <td>
+              <div class="card flex justify-content-center flex-wrap gap-3 align-items-center">
+                <p-button (onClick)="visualizarContato(contact.id)" class="submit" icon="pi pi-info"
+                          styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
+                <p-button (onClick)="editarContato(contact.id)" icon="pi pi-pencil"
+                          styleClass="p-button-rounded p-button-warning p-button-outlined"></p-button>
+                <p-button (onClick)="excluirContato(contact.id)" class="submit" icon="pi pi-trash"
+                          styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">Nenhum contato encontrado</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+    </p-fieldset>
+  </div>
+  <div class="card flex justify-content-center">
+    <p-dialog (onHide)="closeDialogContact" [draggable]="false" [resizable]="false" [(visible)]="exibeFormEditContact" [modal]="true" header="Editar Contato ">
+      <form [formGroup]="form">
+        <div class="cadastrar card flex justify-content-center">
+          <span class="p-float-label">
+            <p-dropdown formControlName="person_id" [options]="clients" optionValue="id" placeholder="Selecione o cliente" id="person_id" optionLabel="name"></p-dropdown>
+            <label htmlFor="person_id">Cliente: </label>
+          </span>
+        </div>
+        <div class="cadastrar card flex justify-content-center">
+          <span class="p-float-label">
+            <p-dropdown formControlName="type_id" [options]="types" optionValue="id" placeholder="Selecione o tipo de contato" id="type_id"  optionLabel="description"></p-dropdown>
+            <label htmlFor="type_id">Tipo de Contato: </label>
+          </span>
+        </div>
+        <div class="cadastrar card flex justify-content-center">
+          <span class="p-float-label">
+            <input formControlName="description" id="description" pInputText type="text"/>
+            <label htmlFor="description"> Descrição: </label>
+          </span>
+        </div>
+      </form>
+      <ng-template pTemplate="footer">
+        <p-footer class="dialog-footer" fxLayoutAlign="center" fxLayoutGap="10px">
+          <p-button (onClick)="atualizarContato()" class="submit" label="Salvar"
+                    styleClass="p-button-rounded p-button-success p-button-outlined"></p-button>
+          <p-button (onClick)="closeDialogContact()" class="submit" label="Cancelar"
+                    styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+        </p-footer>
+      </ng-template>
+    </p-dialog>
+  </div>
+
+  <div class="card flex justify-content-center">
+    <p-dialog header="Detalhe Cliente" [(visible)]="visible" [modal]="true" [style]="{width: '50vw'}">
+      <p-fieldset >
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center text-primary">
+            <span class="pi pi-user mr-2"></span>
+            <span class="font-bold text-lg">Cliente</span>
+          </div>
+        </ng-template>
+        <span class="show">Descrição: {{contact?.description}}</span>
+        <br />
+        <span class="show">Tipo: {{contact?.types?.description}}</span>
+        <br />
+        <span class="show">Cliente: {{contact?.person?.name}}</span>
+      </p-fieldset>
+    </p-dialog>
+  </div>
+
+  <p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+</p-panel>
