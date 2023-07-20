@@ -49,6 +49,7 @@ export class ClientsComponent implements OnInit {
    this.visible = true;
    return this.clientsService.listClient(id).subscribe((value:any) => {
       this.cliente = value.data;
+     this.listClients();
     });
   }
 
@@ -110,6 +111,10 @@ export class ClientsComponent implements OnInit {
   closeDialogCliente() {
     this.exibeFormEditClient = false;
     this.form.reset();
+  }
+
+  closeDialog() {
+    this.cliente = null;
   }
 
 }

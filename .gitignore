@@ -15,7 +15,7 @@ api/auth.json
 api/npm-debug.log
 api/yarn-error.log
 api/.fleet
-api/.idea
+/.idea
 api/.vscode
 api/.docker
 api/tests

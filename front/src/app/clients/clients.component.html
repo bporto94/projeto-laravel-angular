@@ -86,7 +86,7 @@
     </p-fieldset>
   </div>
   <div class="card flex justify-content-center">
-    <p-dialog *ngIf="cliente" (onHide)="closeDialogCliente"  [(visible)]="exibeFormEditClient" [modal]="true" header="Editar Cliente ">
+    <p-dialog *ngIf="cliente" (onHide)="closeDialogCliente()"  [(visible)]="exibeFormEditClient" [modal]="true" header="Editar Cliente ">
       <form  [formGroup]="form">
         <div class="cadastrar card flex justify-content-center" style="margin-top: 20px;">
            <span class="p-float-label">
@@ -114,11 +114,11 @@
   </div>
 
   <div class="card flex justify-content-center">
-    <p-dialog *ngIf="cliente" header="Detalhe Cliente" [(visible)]="visible" datakey="id" [modal]="true" [style]="{width: '50vw'}">
+    <p-dialog (onHide)="closeDialog()" *ngIf="cliente" header="Detalhe Cliente" [(visible)]="visible" datakey="id" [modal]="true" [style]="{width: '50vw'}">
 
       <span style="font-weight:bold">Nome:</span> {{cliente.name}}
       <h4 >Contatos</h4>
-       <div *ngFor="let contact of cliente.contacts">
+       <div  *ngFor="let contact of cliente.contacts">
          <span style="font-weight:bold">{{contact?.types?.description}}:</span> {{contact?.description}}
        </div>
     </p-dialog>
