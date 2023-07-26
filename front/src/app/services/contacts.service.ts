@@ -1,5 +1,5 @@
 import {HttpClient} from "@angular/common/http";
-import {ContactsModel} from "../contacts/contacts.model";
+import {ContactsModel} from "../models/contacts.model";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 @Injectable({

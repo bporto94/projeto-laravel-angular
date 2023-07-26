@@ -1,33 +1,47 @@
 import {HttpClient} from "@angular/common/http";
-import {ClientsModel} from "../clients/clients.model";
-import {Observable} from "rxjs";
-import {environment} from "../../environments/environment";
+import {catchError, Observable, throwError} from "rxjs";
 import {Injectable} from "@angular/core";
+import {ClientsModel} from "../models/clients.model";
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
-
+  //private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  listClients (): Observable<any> {
-    return this.http.get<any[]>(`http://localhost:8081/people`);
+  getClients (): Observable<ClientsModel[]> {
+    return this.http.get<ClientsModel[]>(`http://localhost:8081/client`).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  listClient (id: any) {
-    return this.http.get<any[]>(`http://localhost:8081/people/`.concat(id));
+  getClientById (id: number): Observable<ClientsModel> {
+    return this.http.get<ClientsModel>(`http://localhost:8081/client/`.concat(String(id))).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  addClient(data: ClientsModel): Observable<any> {
-    return this.http.post(`http://localhost:8081/people`, data);
+  addClient(client: ClientsModel): Observable<ClientsModel> {
+    return this.http.post<ClientsModel>('http://localhost:8081/client/', client).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  updateClient(id:any, data: ClientsModel): Observable<any> {
-    return this.http.put(`http://localhost:8081/people/`.concat(id), data);
+  updateClient(id:number, client: ClientsModel): Observable<ClientsModel> {
+    return this.http.put(`http://localhost:8081/client/`.concat(String(id)), client).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  removeClient(id:any): Observable<any> {
-    return this.http.delete(`http://localhost:8081/people/`.concat(id));
+  deleteClient(id:any): Observable<any> {
+    return this.http.delete(`http://localhost:8081/client/`.concat(id)).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any): Observable<any> {
+    console.error('Ocorreu um erro:', error);
+    return throwError('Algo deu errado; por favor, tente novamente mais tarde.');
   }
 
 }

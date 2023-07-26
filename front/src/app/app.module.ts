@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {ClientsComponent} from './clients/clients.component';
+import {ClientsComponent} from './components/clients/clients.component';
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {ScrollPanelModule} from "primeng/scrollpanel";
@@ -16,10 +16,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DividerModule} from "primeng/divider";
 import {PaginatorModule} from "primeng/paginator";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
-import {LoadingComponent} from './loading/loading.component';
-import {LoadingInterceptor} from "./interceptors/loading.interceptor";
+import {LoadingComponent} from './components/loading/loading.component';
+import {LoadingInterceptor} from "./components/interceptors/loading.interceptor";
 import {PanelModule} from "primeng/panel";
-import {TypesComponent} from './types/types.component';
+import {TypesComponent} from './components/types/types.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {StyleClassModule} from "primeng/styleclass";
@@ -31,7 +31,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {MessagesModule} from "primeng/messages";
 import {MenubarModule} from "primeng/menubar";
 import {DialogModule} from "primeng/dialog";
-import { ContactsComponent } from './contacts/contacts.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 import {AccordionModule} from "primeng/accordion";
 @NgModule({
   declarations: [

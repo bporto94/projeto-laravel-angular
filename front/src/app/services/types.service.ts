@@ -1,5 +1,5 @@
 import {HttpClient} from "@angular/common/http";
-import {TypesModel} from "../types/types.model";
+import {TypesModel} from "../models/types.model";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 @Injectable({

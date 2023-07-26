@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ClientRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
+    public function rules(): array
+    {
+        $rules = [
+            'name' => 'required|min:5|max:50, unique:people',
+            'age'  => 'required|min:1|max:2',
+            'contacts' => 'nullable'
+        ];
+
+        if ($this->method() === 'PUT'){
+            $rules['name'] = ['nullable','min:5','max:50', "unique:people,name,{$this->id},id"];
+            $rules['age'] = ['nullable','min:1','max:2'];
+        }
+
+        return $rules;
+    }
+}

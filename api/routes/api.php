@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\ContactsController;
-use App\Http\Controllers\Api\PeopleController;
-use App\Http\Controllers\Api\TypesController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\TypeContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::apiResource('/people', PeopleController::class);
-Route::apiResource('/contacts', ContactsController::class);
-Route::apiResource('/types', TypesController::class);
+Route::apiResource('/client', ClientController::class);
+Route::apiResource('/contact', ContactController::class);
+Route::apiResource('/type', TypeContactController::class);
