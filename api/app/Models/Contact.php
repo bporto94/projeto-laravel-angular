@@ -33,7 +33,7 @@ class Contact extends Model
         'client_id',
         'type_id',
     ];
-    protected $relations = ['types'];
+    protected $relations = ['types', 'client'];
 
     public function types()
     {

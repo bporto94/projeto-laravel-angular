@@ -33,7 +33,8 @@ class Client extends AbstractModel
     ];
 
     protected $relations = [
-        'contacts'
+        'contacts',
+        'contacts.types'
     ];
 
     public function contacts()

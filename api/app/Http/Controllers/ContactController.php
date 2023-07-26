@@ -9,18 +9,18 @@ use Illuminate\Http\Request;
 
 class ContactController extends AbstractController
 {
-    protected $service;
+    protected $contactService;
 
     public function __construct(ContactService $contactService)
     {
-        $this->service = $contactService;
+        $this->contactService = $contactService;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return $this->service->all();
+        return $this->contactService->getAllWithTypeClient();
     }
 
     /**
@@ -28,7 +28,7 @@ class ContactController extends AbstractController
      */
     public function show($id)
     {
-        return $this->service->find($id);
+        return $this->contactService->find($id);
     }
     /**
      * @param Request $request
@@ -36,7 +36,7 @@ class ContactController extends AbstractController
      */
     public function store(Request $request)
     {
-        $request = $this->service->create($request->all());
+        $request = $this->contactService->create($request->all());
         return new ContactResource($request);
     }
 
@@ -47,11 +47,11 @@ class ContactController extends AbstractController
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($id, $request->all());
+        return $this->contactService->update($id, $request->all());
     }
 
     public function destroy($id)
     {
-        return $this->service->delete($id);
+        return $this->contactService->delete($id);
     }
 }

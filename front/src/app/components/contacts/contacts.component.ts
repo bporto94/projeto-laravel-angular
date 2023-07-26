@@ -54,7 +54,6 @@ export class ContactsComponent implements OnInit{
   listContacts() {
     this.contactsService.getContacts().subscribe((data: ContactsModel[]) => {
       this.contacts = data;
-      console.log(this.contacts);
     });
   }
 

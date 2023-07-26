@@ -4,5 +4,5 @@ export class ClientsModel {
   id?: number;
   name?: any;
   age?: any;
-  contacts?: ContactsModel[];
+  contacts?: any;
 }

@@ -17,10 +17,8 @@
 - **php arisan key:generate**
 
 ##### Para rodar migrations
-- **No Arquivo .ENV setar os valores** => DB_HOST=127.0.0.1 DB_PORT=3388
+- **docker exec -it api-app-1 bash**
 - **php arisan migrate:fresh --seed**
-- **Para o front consultar a api .ENV setar os valores** => DB_HOST=mysql DB_PORT=3306
-
 
 # Back
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>

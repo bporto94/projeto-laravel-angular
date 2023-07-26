@@ -19,11 +19,11 @@ return [
 
     'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 
-    'allowed_origins' => ['http://localhost:4200'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Authorization', 'Content-Type', 'Access-Control-Allow-Origin'],
+    'allowed_headers' => ['Authorization', 'Content-Type', 'Accept', 'Access-Control-Allow-Origin'],
 
     'exposed_headers' => [],
 

@@ -12,7 +12,19 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    libicu-dev \
+    libzip-dev \
+    unzip \
+&& docker-php-ext-install \
+    intl \
+    zip \
+&& pecl install xdebug \
+&& docker-php-ext-enable xdebug \
+&& pecl install http \
+&& docker-php-ext-enable http \
+&& pecl install mysql_xdevapi \
+&& docker-php-ext-enable mysql_xdevapi
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -35,8 +47,20 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
-# Install composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy your PHP application files to the container (if applicable)
+ COPY . /var/www/html
+
+# Run composer update to install dependencies
+RUN composer update --no-cache --no-interaction --no-scripts
+
+# Expose port 9000 (adjust if necessary, depending on your web server configuration)
+EXPOSE 9000
 
 # Set working directory
 WORKDIR /var/www

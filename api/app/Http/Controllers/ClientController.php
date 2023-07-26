@@ -21,7 +21,7 @@ class ClientController extends AbstractController
      */
     public function index()
     {
-        return $this->clientService->all();
+        return $this->clientService->getAllWithContacts();
     }
 
     /**
