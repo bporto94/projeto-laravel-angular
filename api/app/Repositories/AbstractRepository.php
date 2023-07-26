@@ -26,7 +26,6 @@ class AbstractRepository
     public function create(array $data)
     {
         return $this->model->create($data);
-
     }
 
     public function update($id, array $data)
@@ -37,7 +36,6 @@ class AbstractRepository
 
     public function delete($id)
     {
-        $record = $this->find($id);
-        return $record ? $record->delete() : false;
+        return $this->model->findOrFail($id)->delete();
     }
 }

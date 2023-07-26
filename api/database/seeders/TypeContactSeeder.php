@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Api\TypeContact;
+use App\Models\TypeContact;
 use Illuminate\Database\Seeder;
 
 class TypeContactSeeder extends Seeder

@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Api\Contact;
+use App\Models\Contact;
+use App\Repositories\Interfaces\ContactRepositoryInterface;
 
-class ContactRepository extends AbstractRepository
+class ContactRepository extends AbstractRepository implements ContactRepositoryInterface
 {
     public function __construct(Contact $contact)
     {

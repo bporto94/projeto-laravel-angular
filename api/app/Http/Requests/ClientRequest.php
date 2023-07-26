@@ -23,8 +23,7 @@ class ClientRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|min:5|max:50, unique:people',
-            'age'  => 'required|min:1|max:2',
-            'contacts' => 'nullable'
+            'age'  => 'required|min:1|max:2'
         ];
 
         if ($this->method() === 'PUT'){

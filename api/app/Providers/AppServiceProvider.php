@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\ClientRepository;
+use App\Repositories\ContactRepository;
+use App\Repositories\Interfaces\ClientRepositoryInterface;
+use App\Repositories\Interfaces\ContactRepositoryInterface;
+use App\Repositories\Interfaces\TypeContactRepositoryInterface;
+use App\Repositories\TypeContactRepository;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,8 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('App\Repositories\ClientRepository', 'App\Services\ClientService');
-        $this->app->bind('App\Repositories\ContactRepository', 'App\Services\ContactService');
+        $this->app->bind(ClientRepositoryInterface::class,ClientRepository::class);
+        $this->app->bind(ContactRepositoryInterface::class,ContactRepository::class);
+        $this->app->bind(TypeContactRepositoryInterface::class,TypeContactRepository::class);
     }
 
     /**

@@ -1,4 +1,4 @@
 export class TypesModel {
-  id: any;
+  id?: number;
   description: any;
 }

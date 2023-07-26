@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Api\TypeContact;
+use App\Models\TypeContact;
+use App\Repositories\Interfaces\TypeContactRepositoryInterface;
 
-class TypeContactRepository extends AbstractRepository
+class TypeContactRepository extends AbstractRepository implements TypeContactRepositoryInterface
 {
     public function __construct(TypeContact $typeContact)
     {

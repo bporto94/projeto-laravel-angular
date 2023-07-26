@@ -34,21 +34,21 @@ export class ClientsComponent implements OnInit {
   initForm() {
     this.form = this.formBuilder.group({
       id:[null],
-      name: ['', [Validators.required]],
-      age: ['', [Validators.required]]
+      name: [null, [Validators.required]],
+      age: [null, [Validators.required]]
     })
   }
 
   listClients() {
-    this.clientsService.getClients().subscribe((value: ClientsModel[]) => {
-      this.clients = value;
+    this.clientsService.getClients().subscribe((data: ClientsModel[]) => {
+      this.clients = data;
     });
   }
 
   visualizarCliente(id:any) {
    this.visible = true;
-   return this.clientsService.getClientById(id).subscribe((value:ClientsModel) => {
-      this.cliente = value;
+   return this.clientsService.getClientById(id).subscribe((data:ClientsModel) => {
+      this.cliente = data;
     });
   }
 
@@ -60,8 +60,8 @@ export class ClientsComponent implements OnInit {
   }
 
   editarCliente(id: any) {
-    this.clientsService.getClientById(id).subscribe((value:ClientsModel) => {
-    this.cliente = value;
+    this.clientsService.getClientById(id).subscribe((data:ClientsModel) => {
+    this.cliente = data;
     this.form.patchValue(this.cliente);
     this.exibeFormEditClient = true;
     });

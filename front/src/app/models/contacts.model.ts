@@ -2,8 +2,8 @@ import {ClientsModel} from "./clients.model";
 import {TypesModel} from "./types.model";
 
 export class ContactsModel {
-  id: any;
+  id?: number;
   description?: any;
-  types?: TypesModel;
-  person?: ClientsModel
+  types?: any;
+  client?: any
 }

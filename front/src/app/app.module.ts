@@ -24,7 +24,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {StyleClassModule} from "primeng/styleclass";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {TypesService} from "./services/types.service";
+import {TypeService} from "./services/type.service";
 import {CardModule} from "primeng/card";
 import {TagModule} from "primeng/tag";
 import {MultiSelectModule} from "primeng/multiselect";
@@ -69,7 +69,7 @@ import {AccordionModule} from "primeng/accordion";
         AccordionModule,
 
     ],
-  providers: [ClientsService, MessageService, TypesService, ConfirmationService, {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}],
+  providers: [ClientsService, MessageService, TypeService, ConfirmationService, {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

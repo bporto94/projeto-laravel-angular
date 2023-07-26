@@ -4,7 +4,7 @@ import {MensagemService} from "../../services/messages.service";
 import {ConfirmationService} from "primeng/api";
 import {ContactsModel} from "../../models/contacts.model";
 import {ContactsService} from "../../services/contacts.service";
-import {TypesService} from "../../services/types.service";
+import {TypeService} from "../../services/type.service";
 import {TypesModel} from "../../models/types.model";
 import {ClientsService} from "../../services/clients.service";
 import {ClientsModel} from "../../models/clients.model";
@@ -17,8 +17,8 @@ import {ClientsModel} from "../../models/clients.model";
 export class ContactsComponent implements OnInit{
   contacts: any[] = [];
   @Input() contact!: ContactsModel|null|undefined;
-  types: any[] | undefined;
-  clients: any[] | undefined;
+  types: TypesModel[]|undefined;
+  clients: ClientsModel[]|undefined;
   visible: boolean = false;
   data: ContactsModel = new ContactsModel();
   exibeFormEditContact: boolean = false;
@@ -27,7 +27,7 @@ export class ContactsComponent implements OnInit{
 
   constructor(
     protected contactsService: ContactsService,
-    protected typesService: TypesService,
+    protected typesService: TypeService,
     protected peopleService: ClientsService,
     protected formBuilder: FormBuilder,
     protected mensagemService: MensagemService,
@@ -47,19 +47,20 @@ export class ContactsComponent implements OnInit{
       id:[null],
       description: ['', [Validators.required]],
       type_id: new FormControl<TypesModel | null>(null),
-      person_id: new FormControl<ClientsModel | null>(null)
+      client_id: new FormControl<ClientsModel | null>(null)
     })
   }
 
   listContacts() {
-    this.contactsService.listContacts().subscribe((value: any) => {
-      this.contacts = value.data;
+    this.contactsService.getContacts().subscribe((data: ContactsModel[]) => {
+      this.contacts = data;
+      console.log(this.contacts);
     });
   }
 
   visualizarContato(id: any) {
-    this.contactsService.listContact(id).subscribe((value:any) => {
-      this.contact = value.data;
+    this.contactsService.getContactById(id).subscribe((data:ContactsModel) => {
+      this.contact = data;
     });
     this.visible = true;
   }
@@ -72,19 +73,19 @@ export class ContactsComponent implements OnInit{
   }
 
   listTypes() {
-    this.typesService.listTypes().subscribe((data: any) => {
-      this.types = data.data;
+    this.typesService.getType().subscribe((data: TypesModel[]) => {
+      this.types = data;
     });
   }
 
   listClients() {
-    this.peopleService.getClients().subscribe((data: any) => {
-      this.clients = data.data;
+    this.peopleService.getClients().subscribe((data: ClientsModel[]) => {
+      this.clients = data;
     });
   }
 
   editarContato(id: any) {
-    this.contactsService.listContact(id).subscribe((value:any) => {
+    this.contactsService.getContactById(id).subscribe((value:any) => {
       this.contact = value.data;
       this.form.patchValue(this.contact);
       this.exibeFormEditContact = true;

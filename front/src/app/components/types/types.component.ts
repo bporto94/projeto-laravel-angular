@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {TypesModel} from "../../models/types.model";
-import {TypesService} from "../../services/types.service";
+import {TypeService} from "../../services/type.service";
 import {MensagemService} from "../../services/messages.service";
-import {ConfirmationService, Message} from "primeng/api";
-import {Table} from "primeng/table";
-import {ContactsModel} from "../../models/contacts.model";
+import {ConfirmationService} from "primeng/api";
+import {ClientsModel} from "../../models/clients.model";
 
 @Component({
   selector: 'app-types',
@@ -19,7 +18,7 @@ export class TypesComponent implements OnInit {
   exibeFormEditType: boolean = false;
   form: any;
   constructor(
-    protected typesService: TypesService,
+    protected typesService: TypeService,
     protected formBuilder: FormBuilder,
     protected mensagemService: MensagemService,
     protected confirmationService: ConfirmationService
@@ -27,7 +26,7 @@ export class TypesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listTypes();
+    this.listType();
     this.initForm();
 
     this.types.forEach((type) => (type.date = new Date(<Date>type.date)));
@@ -40,22 +39,21 @@ export class TypesComponent implements OnInit {
     })
   }
 
-
-  listTypes() {
-    this.typesService.listTypes().subscribe((data: any) => {
-      this.types = data.data;
+  listType() {
+    this.typesService.getType().subscribe((data: TypesModel[]) => {
+      this.types = data;
     });
   }
 
   createType() {
     this.typesService.addType(this.form.value).subscribe(value => {
       this.form.value = new TypesModel();
-      this.listTypes();
+      this.listType();
     });
   }
 
   editarTipo(id: any) {
-    this.typesService.listType(id).subscribe((value:any) => {
+    this.typesService.getTypeById(id).subscribe((value:any) => {
       this.type = value.data;
       this.form.patchValue(this.type);
       this.exibeFormEditType = true;
@@ -68,7 +66,7 @@ export class TypesComponent implements OnInit {
       this.type = null;
       this.exibeFormEditType = false;
       this.form.reset();
-      this.listTypes();
+      this.listType();
     });
   }
 
@@ -80,7 +78,7 @@ export class TypesComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Deseja realmente excluir o tipo de contato?',
       accept: () => {
-        this.typesService.removeType(id)
+        this.typesService.deleteType(id)
           .subscribe({
             next: res => {
               if (res.sucesso) {
@@ -94,7 +92,7 @@ export class TypesComponent implements OnInit {
               }
             }
           });
-        this.listTypes();
+        this.listType();
       },
       acceptLabel: 'Sim',
       acceptButtonStyleClass: 'p-button-success',

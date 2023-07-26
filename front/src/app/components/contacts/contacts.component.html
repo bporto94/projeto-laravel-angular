@@ -2,8 +2,8 @@
   <form (ngSubmit)="createContact()" *ngIf="form" [formGroup]="form" method="post">
     <div class="cadastrar card flex justify-content-center">
           <span class="p-float-label">
-            <p-dropdown formControlName="person_id" [options]="clients" optionValue="id" placeholder="Selecione o cliente" id="float-label" optionLabel="name"></p-dropdown>
-            <label htmlFor="person_id">Cliente: </label>
+            <p-dropdown formControlName="client_id" [options]="clients" optionValue="id" placeholder="Selecione o cliente" id="float-label" optionLabel="name"></p-dropdown>
+            <label htmlFor="client_id">Cliente: </label>
           </span>
     </div>
     <div class="cadastrar card flex justify-content-center">
@@ -69,13 +69,13 @@
               {{ contact.id }}
             </td>
             <td>
-              {{ contact.person.name }}
+              {{ contact.description}}
             </td>
             <td>
               {{ contact.description}}
             </td>
             <td>
-              {{ contact.types.description }}
+              {{ contact.description }}
             </td>
             <td>
               <div class="card flex justify-content-center flex-wrap gap-3 align-items-center">
@@ -103,8 +103,8 @@
       <form [formGroup]="form">
         <div class="cadastrar card flex justify-content-center">
           <span class="p-float-label">
-            <p-dropdown formControlName="person_id" [options]="clients" optionValue="id" placeholder="Selecione o cliente" id="person_id" optionLabel="name"></p-dropdown>
-            <label htmlFor="person_id">Cliente: </label>
+            <p-dropdown formControlName="client_id" [options]="clients" optionValue="id" placeholder="Selecione o cliente" id="person_id" optionLabel="name"></p-dropdown>
+            <label htmlFor="client_id">Cliente: </label>
           </span>
         </div>
         <div class="cadastrar card flex justify-content-center">
@@ -144,7 +144,7 @@
         <br />
         <span class="show">Tipo: {{contact?.types?.description}}</span>
         <br />
-        <span class="show">Cliente: {{contact?.person?.name}}</span>
+        <span class="show">Cliente: {{contact?.client?.name}}</span>
       </p-fieldset>
     </p-dialog>
   </div>

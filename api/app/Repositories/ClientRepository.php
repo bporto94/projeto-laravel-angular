@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Api\Client;
+use App\Models\Client;
+use App\Repositories\Interfaces\ClientRepositoryInterface;
 
-class ClientRepository extends AbstractRepository
+class ClientRepository extends AbstractRepository implements ClientRepositoryInterface
 {
     public function __construct(Client $client)
     {
