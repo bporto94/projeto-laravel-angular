@@ -22,7 +22,7 @@ class ContactsRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'description' => 'required|min:5|max:50, unique:people',
+            'description' => 'required|min:5|max:50, unique:people, required_if:type_id,2|email',
             'type_id' => 'required',
             'person_id' => 'required'
         ];

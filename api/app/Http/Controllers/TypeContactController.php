@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ClientResource;
 use App\Http\Resources\TypeContactResource;
 use App\Services\TypeContactService;
 use Illuminate\Http\Request;
@@ -21,14 +20,6 @@ class TypeContactController extends AbstractController
     public function index()
     {
         return $this->typeContactService->all();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        return $this->typeContactService->find($id);
     }
 
     /**

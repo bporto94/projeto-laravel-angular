@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ClientRequest;
 use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
+use App\Services\ContactService;
 use Illuminate\Http\Request;
 
 class ClientController extends AbstractController
 {
     protected ClientService $clientService;
+    protected ContactService $contactService;
 
-    public function __construct(ClientService $clientService)
+    public function __construct(ClientService $clientService, ContactService $contactService)
     {
         $this->clientService = $clientService;
+        $this->contactService = $contactService;
     }
 
     /**
@@ -38,8 +40,10 @@ class ClientController extends AbstractController
      */
     public function store(Request $request): ClientResource
     {
-        $request = $this->clientService->create($request->all());
-        return new ClientResource($request);
+        $clientData = $request->all('name', 'age');
+        $contactData = $request->input('contacts');
+        $client = $this->clientService->createClientWithContacts($clientData, $contactData);
+        return new ClientResource($client);
     }
 
     /**

@@ -30,6 +30,8 @@ class Client extends AbstractModel
     protected $fillable = [
         'name',
         'age',
+        'contacts.description',
+        'contacts.type_id',
     ];
 
     protected $relations = [

@@ -13,11 +13,12 @@ import {ConfirmationService} from "primeng/api";
 export class ClientsComponent implements OnInit {
 
   clients: any[] = [];
-  @Input() cliente: ClientsModel|null|undefined;
+  @Input() cliente: ClientsModel | null | undefined;
   data: ClientsModel = new ClientsModel();
   form: any;
   visible: boolean = false;
   exibeFormEditClient: boolean = false;
+  contactsForm: boolean = false;
   constructor(
     protected clientsService: ClientsService,
     protected formBuilder: FormBuilder,
@@ -33,9 +34,10 @@ export class ClientsComponent implements OnInit {
 
   initForm() {
     this.form = this.formBuilder.group({
-      id:[null],
+      id: [null],
       name: [null, [Validators.required]],
-      age: [null, [Validators.required]]
+      age: [null, [Validators.required]],
+      contacts: this.formBuilder.array([])
     })
   }
 
@@ -53,10 +55,7 @@ export class ClientsComponent implements OnInit {
   }
 
   createClient() {
-    this.clientsService.addClient(this.form.value).subscribe(value => {
-      this.form.value = new ClientsModel();
-      this.listClients();
-    });
+    console.log(this.form.value);
   }
 
   editarCliente(id: any) {
@@ -115,5 +114,4 @@ export class ClientsComponent implements OnInit {
   closeDialog() {
     this.cliente = null;
   }
-
 }
